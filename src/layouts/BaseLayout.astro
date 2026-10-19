@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+import { SITE } from '../data/site';
+
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title, description = SITE.description, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+const site = Astro.site ?? new URL('https://kubeheads.com');
+const canonical = new URL(Astro.url.pathname, site);
+const ogImage = new URL('/og.png', site);
+const verification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+
+/**
+ * Organization structured data. This is the one piece of SEO that pays off immediately for a
+ * brand-new domain: it is how a search engine learns that "KubeHeads" is an entity with a
+ * name, a contact address and a canonical URL, rather than a random string. It will not make
+ * you rank for competitive terms — nothing will, this early — but it makes your own brand
+ * name resolve to you faster.
+ */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: SITE.name,
+  url: site.href,
+  email: SITE.email,
+  description: SITE.description,
+  slogan: SITE.tagline,
+  areaServed: 'EU',
+  address: { '@type': 'PostalAddress', addressLocality: 'Budapest', addressCountry: 'HU' },
+  knowsAbout: [
+    'AI automation',
+    'AI workflow automation',
+    'AI cost and latency optimization',
+    'Software engineering',
+    'Data engineering',
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="generator" content={Astro.generator} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {verification && <meta name="google-site-verification" content={verification} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <Analytics />
+  </head>
+  <body>
+    <a href="#main" class="skip">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <style>
+      .skip {
+        position: absolute; left: -9999px;
+        background: var(--accent); color: var(--ink-invert);
+        padding: .7rem 1.1rem; border-radius: 0 0 8px 0; z-index: 100;
+      }
+      .skip:focus { left: 0; top: 0; }
+    </style>
+  </body>
+</html>

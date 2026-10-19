@@ -1,0 +1,32 @@
+---
+/**
+ * Cookieless analytics. Renders nothing unless a token is configured, so local dev and
+ * previews stay clean.
+ *
+ * Both options below are cookieless and store no persistent identifier, which is why this
+ * site has no cookie banner. That is a deliberate choice: a banner costs you a chunk of real
+ * visitors to a dismissal click, and consent-gated analytics under-counts exactly the
+ * privacy-conscious technical audience this site is aimed at.
+ *
+ * Caveat worth knowing: cookieless is not the same as "no personal data". These services
+ * still process IP and user-agent to derive a visitor count. The privacy notice at /privacy
+ * says so plainly rather than claiming more than is true.
+ */
+const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+---
+{
+  cfToken && (
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={`{"token": "${cfToken}"}`}
+    />
+  )
+}
+{
+  plausibleDomain && (
+    <script is:inline defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" />
+  )
+}

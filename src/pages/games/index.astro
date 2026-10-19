@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { GAMES, SITE } from '../../data/site';
+---
+<BaseLayout
+  title="Games"
+  description="Games made by KubeHeads — the same team that ships production software, building its own titles."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Games</p>
+      <h1>We also make games.</h1>
+      <p class="lede">
+        Building and shipping our own titles keeps us honest about what it takes to get software
+        in front of real users. Here is what we are working on.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--sunken">
+    <div class="wrap">
+      <div class="grid grid--3">
+        {GAMES.map((g) => (
+          <article class="card game">
+            <p class="game__status mono">{g.status}</p>
+            <h2 class="game__title">{g.title}</h2>
+            <p>{g.summary}</p>
+            {g.link && <a class="game__link" href={g.link.href}>{g.link.label} →</a>}
+          </article>
+        ))}
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Get in touch</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .game__status { color: var(--accent-text); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .6rem; }
+  .game__title { font-size: 1.35rem; margin: 0 0 .45rem; }
+  .game__link { display: inline-block; margin-top: 1rem; font-weight: 500; text-decoration: none; color: var(--accent-text); }
+  .game__link:hover { text-decoration: underline; }
+</style>

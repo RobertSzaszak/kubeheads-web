@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+<BaseLayout
+  title="About"
+  description="KubeHeads is a small engineering practice. You talk to the people who write the code, because there is nobody else to talk to."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1>Small on purpose.</h1>
+      <p class="lede">
+        KubeHeads is an engineering practice, not a body shop. You talk to the people who write
+        the code, because there is nobody else to talk to.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--sunken">
+    <div class="wrap narrow">
+      <h2>What that means in practice</h2>
+      <p>
+        There is no account manager translating your problem into a statement of work and then
+        translating it back. There is no bench of juniors quietly assigned to your project after
+        the pitch. The engineer in the first call is the engineer who ships it.
+      </p>
+      <p>
+        It also means we take on fewer projects than we could. We would rather do three things
+        properly this quarter than nine badly. If we are not the right fit, we will say so early
+        and point you somewhere better.
+      </p>
+
+      <h2 style="margin-top:2.5rem">Why the three disciplines go together</h2>
+      <p>
+        AI automation, optimization, and engineering are usually sold by three different firms.
+        That split is where the work dies: the model vendor waits on the data team, the data team
+        waits on whoever owns deployment, and the project quietly becomes nobody's problem.
+      </p>
+      <p>
+        Covering all three is not a claim to be world-class at each in isolation. It is a claim
+        that the seams between them are where projects fail, and that removing the seams is worth
+        more to you than a marginally better specialist on any one of them.
+      </p>
+
+      <h2 style="margin-top:2.5rem">Where we are</h2>
+      <p>
+        Budapest, Hungary — working with clients across the EU, remote-first, comfortable in
+        English and Hungarian.
+      </p>
+
+      <h2 style="margin-top:2.5rem">The honest status</h2>
+      <p class="muted">
+        We are early, and we would rather tell you that plainly than pad a client logo wall. If
+        that is a dealbreaker, entirely fair. If it means you get senior attention at a stage
+        where most firms would hand you a junior — that is the trade.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a class="btn btn--ghost" href="/approach">How we work</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68ch; }
+  .narrow h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+</style>

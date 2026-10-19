@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SERVICES, PROCESS, PROBLEM, SITE } from '../data/site';
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="wrap">
+      <p class="hero__kicker mono">AI automation · optimization · engineering</p>
+      <h1>Most AI projects die as demos.<br /><span class="hero__accent">We deliver the ones that run.</span></h1>
+      <p class="lede">
+        KubeHeads builds automation that reaches production. One team covers the whole path —
+        the process, the models, the data, and the deployment — because that is exactly where
+        this work usually falls apart.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/contact">Book a free teardown</a>
+        <a class="btn btn--ghost" href="/services">What we deliver</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sunken">
+    <div class="wrap">
+      <p class="eyebrow">The problem we are actually solving</p>
+      <div class="split">
+        <h2>{PROBLEM.stat}</h2>
+        <div class="split__body">
+          <p>{PROBLEM.body}</p>
+          <p class="muted">
+            Hiring three specialists to cover those gaps means the gaps become contract
+            boundaries. That is the whole reason we do all three.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2>Three disciplines, one team.</h2>
+      <p class="lede">
+        No twenty-service menu. These are the things we are good at, and each one lists what you
+        actually receive.
+      </p>
+      <div class="grid grid--3" style="margin-top:2.75rem">
+        {SERVICES.map((s) => (
+          <article class="card">
+            <p class="card__kicker mono">{s.kicker}</p>
+            <h3>{s.title}</h3>
+            <p>{s.summary}</p>
+            <a class="card__link" href={`/services#${s.id}`}>What you get →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sunken">
+    <div class="wrap">
+      <p class="eyebrow">How it runs</p>
+      <h2>Small, fixed, and reversible.</h2>
+      <p class="lede">
+        You should be able to find out whether we are worth it for the price of a couple of
+        weeks — not a six-figure transformation programme.
+      </p>
+      <ol class="process">
+        {PROCESS.map((p) => (
+          <li>
+            <span class="process__step mono">{p.step}</span>
+            <h3>{p.title}</h3>
+            <p class="muted">{p.body}</p>
+            <p class="process__out mono">→ {p.output}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="/approach">How we work in detail</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta">
+    <div class="wrap cta__inner">
+      <h2>Tell us about the process you dread.</h2>
+      <p class="lede">
+        One call, one honest opinion, no deck. If automating it is a bad idea we will say so —
+        that answer is free too.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a class="btn btn--ghost" href="/contact">Contact page</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-block: clamp(4rem, 12vw, 8.5rem) clamp(3rem, 8vw, 5.5rem); position: relative; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(60ch 40ch at 12% -10%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%);
+    pointer-events: none;
+  }
+  .hero > .wrap { position: relative; }
+  .hero__kicker { color: var(--text-faint); letter-spacing: .14em; text-transform: uppercase; font-size: .74rem; margin: 0 0 1.4rem; }
+  .hero__accent { color: var(--accent-text); }
+  .hero .lede { margin-top: 1.5rem; }
+
+  .split { display: grid; gap: 1.5rem 3rem; align-items: start; }
+  @media (min-width: 860px) { .split { grid-template-columns: 1fr 1fr; } }
+  .split h2 { margin: 0; }
+  .split__body p:last-child { margin-bottom: 0; }
+
+  .card__kicker { color: var(--accent-text); font-size: .74rem; margin: 0 0 .9rem; letter-spacing: .1em; }
+  .card__link {
+    display: inline-block; margin-top: 1.1rem; font-size: .9rem;
+    color: var(--accent-text); text-decoration: none; font-weight: 500;
+  }
+  .card__link:hover { text-decoration: underline; }
+
+  .process { list-style: none; margin: 2.75rem 0 0; padding: 0; display: grid; gap: 1.5rem; }
+  @media (min-width: 800px) { .process { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+  .process li { border-top: 2px solid var(--accent); padding-top: 1.1rem; }
+  .process__step { display: block; color: var(--text-faint); font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+  .process h3 { margin-bottom: .4rem; }
+  .process p { font-size: .96rem; margin: 0; }
+  .process__out { margin-top: .8rem !important; font-size: .82rem; color: var(--accent-text); }
+
+  .cta__inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .cta .lede { margin-inline: auto; }
+  .cta .btn-row { justify-content: center; }
+</style>

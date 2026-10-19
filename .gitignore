@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.production
+.DS_Store
+
+# Private studio knowledge base — this repo is public for GitHub Pages.
+docs/
+.claude/settings.local.json

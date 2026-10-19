@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SERVICES, PRINCIPLES, SITE } from '../data/site';
+---
+<BaseLayout
+  title="What we do"
+  description="AI automation and workflow, AI optimization, and software and data engineering — with what you actually receive listed for each."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h1>Three disciplines, and what each one hands you.</h1>
+      <p class="lede">
+        The hard part was never the model. It is everything around it — the data, the approval
+        step, the evals, and the moment it fails at 3am and someone has to understand why.
+      </p>
+    </div>
+  </section>
+
+  {SERVICES.map((s, i) => (
+    <section id={s.id} class={`section svc ${i % 2 === 1 ? 'section--sunken' : ''}`}>
+      <div class="wrap svc__grid">
+        <div class="svc__head">
+          <p class="svc__num mono">{s.kicker}</p>
+          <h2>{s.title}</h2>
+          <p class="svc__summary">{s.summary}</p>
+        </div>
+        <div class="svc__deliver">
+          <p class="eyebrow">What you get</p>
+          <ul class="deliver">
+            {s.deliverables.map((d) => <li>{d}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h2>Three commitments.</h2>
+      <div class="grid grid--3" style="margin-top:2.5rem">
+        {PRINCIPLES.map((p) => (
+          <article class="card">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))}
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/contact">Start with a teardown</a>
+        <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Email us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .svc__grid { display: grid; gap: 2rem 3.5rem; align-items: start; }
+  @media (min-width: 860px) { .svc__grid { grid-template-columns: 1.1fr 1fr; } }
+  .svc__num { color: var(--accent-text); font-size: .78rem; letter-spacing: .12em; margin: 0 0 .5rem; }
+  .svc h2 { margin: 0 0 .7rem; }
+  .svc__summary { color: var(--text-muted); margin: 0; }
+
+  .deliver { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+  .deliver li {
+    position: relative; padding-left: 1.6rem; font-size: .97rem; color: var(--text);
+  }
+  .deliver li::before {
+    content: ''; position: absolute; left: 0; top: .58em;
+    width: 7px; height: 7px; border-radius: 2px; background: var(--accent);
+  }
+</style>

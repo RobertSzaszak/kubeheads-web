@@ -1,0 +1,87 @@
+---
+import { SITE } from '../data/site';
+/**
+ * Social share card, rendered at exactly 1200x630 so it can be screenshotted once and saved
+ * as public/og.png.
+ *
+ * Generating a real PNG at build time needs a headless browser or a native image library —
+ * both are heavy dependencies for an asset that changes roughly never. Open /og, screenshot
+ * the card, save it, done.
+ *
+ * noindex: this is a rendering surface, not a page anyone should find in search.
+ */
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG card — screenshot this at 1200x630</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap"
+    />
+  </head>
+  <body>
+    <p class="hint">
+      Screenshot the card below at exactly 1200 × 630 and save it as
+      <code>public/og.png</code>. In Chrome: DevTools → ⋮ → Capture node screenshot on the card.
+    </p>
+
+    <div class="card">
+      <div class="card__top">
+        <span class="mark"></span>
+        <span class="name">KubeHeads</span>
+      </div>
+      <h1>Most AI projects die as demos.<br /><span>We deliver the ones that run.</span></h1>
+      <div class="card__foot">
+        <span>AI automation · optimization · engineering</span>
+        <span class="dom">{SITE.domain}</span>
+      </div>
+    </div>
+
+    <style is:global>
+      body {
+        margin: 0; padding: 24px; background: #2a2a2a;
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+      .hint { color: #bbb; font-size: 14px; max-width: 1200px; margin: 0 0 20px; line-height: 1.6; }
+      .hint code { background: #444; padding: 2px 6px; border-radius: 4px; color: #fff; }
+
+      .card {
+        width: 1200px; height: 630px; box-sizing: border-box;
+        background: #0e0d0c; color: #f2efea;
+        padding: 72px 80px; display: flex; flex-direction: column;
+        justify-content: space-between; position: relative; overflow: hidden;
+      }
+      .card::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(700px 500px at 8% -15%, rgba(251, 146, 60, .20), transparent 70%);
+      }
+      .card > * { position: relative; }
+
+      .card__top { display: flex; align-items: center; gap: 16px; }
+      .mark {
+        width: 26px; height: 26px; border-radius: 6px; background: #fb923c;
+        box-shadow: 9px 9px 0 -2px rgba(251, 146, 60, .35);
+      }
+      .name {
+        font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+        font-size: 30px; letter-spacing: -.02em;
+      }
+
+      .card h1 {
+        font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+        font-size: 72px; line-height: 1.1; letter-spacing: -.03em; margin: 0;
+      }
+      .card h1 span { color: #fb923c; }
+
+      .card__foot {
+        display: flex; justify-content: space-between; align-items: baseline;
+        font-size: 22px; color: #a49b8e;
+      }
+      .dom { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #f2efea; }
+    </style>
+  </body>
+</html>

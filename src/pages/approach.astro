@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PROCESS, SITE } from '../data/site';
+---
+<BaseLayout
+  title="How we work"
+  description="A free teardown, a fixed-fee build, then run it or take it. What each stage costs you and what it produces."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <h1>You should be able to fire us cheaply.</h1>
+      <p class="lede">
+        Every stage below is small enough to walk away from. That is deliberate — it is the only
+        honest way to sell work whose value you cannot verify until it exists.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--sunken">
+    <div class="wrap">
+      <ol class="stages">
+        {PROCESS.map((p) => (
+          <li class="stage">
+            <div class="stage__when">
+              <span class="mono">{p.step}</span>
+            </div>
+            <div class="stage__body">
+              <h2>{p.title}</h2>
+              <p>{p.body}</p>
+              <p class="stage__out mono">Produces: {p.output}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <h2>What we need from you</h2>
+      <p>
+        Less than you would expect, but it is not nothing. A build goes badly when these are
+        missing, so we would rather say them up front:
+      </p>
+      <ul class="need">
+        <li><strong>One person who owns the process.</strong> Not a committee — someone who can say how it actually works today and decide when it is right.</li>
+        <li><strong>Access to real data.</strong> Sanitised is fine, synthetic is not. Automation fails on the messy cases, and synthetic data never has them.</li>
+        <li><strong>An honest answer on volume.</strong> How often the process runs, and how much it costs you when it goes wrong. That is the whole business case.</li>
+      </ul>
+
+      <h2 style="margin-top:2.5rem">What we will tell you no about</h2>
+      <p>
+        A short list, because it saves everyone a meeting:
+      </p>
+      <ul class="need">
+        <li><strong>Automating something nobody has written down.</strong> If the process only exists in one person's head, the first job is documenting it — and you do not need us for that.</li>
+        <li><strong>Anything where a wrong answer is unrecoverable</strong> and no human approval step is acceptable. We will not put a model in that position.</li>
+        <li><strong>Work that is a rules engine wearing an AI costume.</strong> We will say so, and point you at the cheaper thing.</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/contact">Book a teardown</a>
+        <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stages { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .stage {
+    display: grid; gap: .5rem 2.5rem; align-items: start;
+    padding-block: 2rem; border-top: 1px solid var(--line);
+  }
+  .stage:first-child { border-top: 2px solid var(--accent); }
+  @media (min-width: 760px) { .stage { grid-template-columns: 8rem 1fr; } }
+  .stage__when span { color: var(--accent-text); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+  .stage h2 { font-size: clamp(1.3rem, 2.4vw, 1.7rem); margin-bottom: .5rem; }
+  .stage p { color: var(--text-muted); margin-bottom: .6rem; max-width: 60ch; }
+  .stage__out { color: var(--accent-text); font-size: .84rem; margin: 0 !important; }
+
+  .narrow { max-width: 68ch; }
+  .narrow h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .need { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: .9rem; }
+  .need li { position: relative; padding-left: 1.6rem; color: var(--text-muted); }
+  .need li::before {
+    content: ''; position: absolute; left: 0; top: .58em;
+    width: 7px; height: 7px; border-radius: 2px; background: var(--accent);
+  }
+  .need strong { color: var(--text); font-weight: 600; }
+</style>

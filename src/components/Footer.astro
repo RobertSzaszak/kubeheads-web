@@ -1,0 +1,42 @@
+---
+import { SITE, NAV, FOOTER_LINKS } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div>
+      <p class="foot__brand">{SITE.name}</p>
+      <p class="foot__line">{SITE.tagline}</p>
+      <p class="foot__line">
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </p>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        {[...NAV, ...FOOTER_LINKS].map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap foot__base">
+    <span>© {year} {SITE.name}</span>
+    <span class="foot__legal"><a href="/privacy">Privacy</a> <span class="mono">{SITE.domain}</span></span>
+  </div>
+</footer>
+
+<style>
+  .foot { border-top: 1px solid var(--line); background: var(--bg-sunken); margin-top: 2rem; }
+  .foot__inner { display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: space-between; padding-block: 3rem 2rem; }
+  .foot__brand { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin: 0 0 .35rem; }
+  .foot__line { margin: 0 0 .25rem; color: var(--text-muted); font-size: .93rem; }
+  .foot nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+  .foot nav a { text-decoration: none; color: var(--text-muted); font-size: .93rem; }
+  .foot nav a:hover { color: var(--accent-text); }
+  .foot__legal { display: flex; gap: 1.25rem; align-items: baseline; }
+  .foot__legal a { text-decoration: none; }
+  .foot__legal a:hover { color: var(--accent-text); }
+  .foot__base {
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    padding-block: 1.25rem; border-top: 1px solid var(--line);
+    color: var(--text-faint); font-size: .83rem;
+  }
+</style>

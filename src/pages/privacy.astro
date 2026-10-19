@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+/**
+ * Required, not optional. The moment a contact form collects a name and an email address from
+ * an EU visitor, GDPR Articles 13/14 oblige you to tell them what happens to it. This page is
+ * why the site can go live before the company legally exists — but see the note at the bottom:
+ * the controller identity has to be corrected once an entity is formed.
+ */
+const updated = '31 August 2026';
+---
+<BaseLayout
+  title="Privacy"
+  description="What data this site collects, why, and how to have it deleted."
+>
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="eyebrow">Privacy</p>
+      <h1>What we collect, and why.</h1>
+      <p class="lede">
+        Short version: if you use the contact form we keep your message so we can reply to it.
+        There are no cookies, no tracking pixels, no advertising networks, and nothing is sold
+        or shared with anyone.
+      </p>
+      <p class="muted mono updated">Last updated: {updated}</p>
+
+      <h2>Who is responsible</h2>
+      <p>
+        KubeHeads, operating from Budapest, Hungary. Contact:
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. This is the address to use for any
+        request below — it reaches a person, not a ticket queue.
+      </p>
+
+      <h2>If you use the contact form</h2>
+      <p>
+        We receive the name, email address and message you submit. We use them for one purpose:
+        replying to your enquiry and any conversation that follows from it.
+      </p>
+      <ul class="plain">
+        <li><strong>Lawful basis:</strong> legitimate interest in responding to someone who deliberately contacted us, and steps toward a contract if the conversation becomes an engagement.</li>
+        <li><strong>Processor:</strong> the form is delivered by <a href="https://web3forms.com" rel="noopener">Web3Forms</a>, which forwards it to our inbox. Email is hosted on Google Workspace.</li>
+        <li><strong>Retention:</strong> enquiries that do not become a client relationship are deleted within 12 months. Client correspondence is kept as long as the working relationship and any legal record-keeping requires.</li>
+        <li><strong>No marketing:</strong> there is no mailing list. We will not add you to one, and we will not contact you again about something unrelated.</li>
+      </ul>
+
+      <h2>Analytics</h2>
+      <p>
+        We measure how many people visit and which pages they read, using cookieless analytics.
+        No cookie is set, no identifier is stored on your device, and you are not tracked across
+        other websites. That is why this site has no cookie banner — there is nothing to consent
+        to.
+      </p>
+      <p class="muted">
+        To be accurate rather than flattering: cookieless does not mean no personal data is
+        processed at all. The analytics provider briefly processes your IP address and browser
+        user-agent to work out that a visit happened and roughly where from, then discards them
+        without building a profile. We only ever see aggregate counts.
+      </p>
+
+      <h2>What we never do</h2>
+      <ul class="plain">
+        <li>Sell, rent or share your data with advertisers or data brokers</li>
+        <li>Set advertising or cross-site tracking cookies</li>
+        <li>Add you to a mailing list because you contacted us</li>
+        <li>Use your enquiry as a case study or example without asking you first</li>
+      </ul>
+
+      <h2>Your rights</h2>
+      <p>
+        Under GDPR you can ask us for a copy of what we hold about you, ask us to correct it, or
+        ask us to delete it. Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we will
+        action it — realistically within days, and legally within one month. You do not need to
+        give a reason for a deletion request.
+      </p>
+      <p>
+        If you are unhappy with how we have handled it, you can complain to the Hungarian data
+        protection authority (<span class="mono">NAIH</span>) or to the supervisory authority in
+        your own EU country.
+      </p>
+
+      <div class="callout">
+        <p class="mono callout__label">Note on our status</p>
+        <p>
+          KubeHeads is early and no legal entity is registered yet, so the controller here is an
+          individual operating under that name. This notice will be updated with the registered
+          entity details once one exists. We would rather say that plainly than imply a
+          corporate structure that is not there.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .narrow { max-width: 68ch; }
+  .narrow h2 {
+    font-size: clamp(1.25rem, 2.3vw, 1.6rem);
+    margin-top: 2.5rem;
+  }
+  .updated { font-size: .82rem; margin-top: -.4rem; }
+
+  .plain { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: .8rem; }
+  .plain li { position: relative; padding-left: 1.6rem; color: var(--text-muted); }
+  .plain li::before {
+    content: ''; position: absolute; left: 0; top: .58em;
+    width: 7px; height: 7px; border-radius: 2px; background: var(--accent);
+  }
+  .plain strong { color: var(--text); font-weight: 600; }
+
+  .callout {
+    margin-top: 2.5rem; padding: 1.3rem 1.5rem;
+    background: var(--bg-sunken); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .callout__label {
+    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent-text); margin: 0 0 .5rem;
+  }
+  .callout p:last-child { margin-bottom: 0; color: var(--text-muted); font-size: .95rem; }
+</style>

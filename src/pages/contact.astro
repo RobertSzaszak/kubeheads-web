@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+
+/**
+ * Web3Forms: the key is public by design — it only permits posting to the address that
+ * registered it. Get one at https://web3forms.com by entering hello@kubeheads.com; it
+ * arrives by email with no dashboard signup. Free tier is 250 submissions/month.
+ *
+ * If the key is unset the form is not rendered at all. A contact form that silently drops
+ * enquiries is strictly worse than no form, and this site is going live before the company
+ * exists — a lost first enquiry is expensive.
+ */
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
+---
+<BaseLayout
+  title="Contact"
+  description="Tell us about the process you dread. One call, one honest opinion, no deck."
+>
+  <section class="section">
+    <div class="wrap contact">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h1>Let's talk.</h1>
+        <p class="lede">
+          Tell us the process that quietly eats a day a week. We will tell you whether
+          automating it is worth the money — including when it is not.
+        </p>
+        <p class="mono contact__mail">
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </p>
+        <p class="muted contact__note">
+          We reply to everything, usually within a working day. No mailing list, no follow-up
+          sequence — you will hear from a person once, and then only if you write back.
+        </p>
+      </div>
+
+      {accessKey ? (
+        <form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value="New enquiry from kubeheads.com" />
+          <input type="hidden" name="from_name" value="KubeHeads website" />
+
+          {/* Honeypot. Real people never fill this; bots fill every field they find. */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            style="display:none"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label>
+            <span>What should we look at?</span>
+            <textarea
+              name="message"
+              rows="5"
+              required
+              placeholder="The process, roughly how often it runs, and who does it today."
+            ></textarea>
+          </label>
+
+          <button class="btn btn--primary" type="submit" data-submit>Send</button>
+
+          <p class="form__status" data-status role="status" aria-live="polite"></p>
+          <p class="form__note muted">
+            Goes to {SITE.email}. We store what you send only to reply to it — see our
+            <a href="/privacy">privacy notice</a>.
+          </p>
+        </form>
+      ) : (
+        <div class="form form--unconfigured">
+          <h2>Form not configured yet</h2>
+          <p class="muted">
+            <code>PUBLIC_WEB3FORMS_KEY</code> is unset, so the form is hidden rather than
+            shipped broken. Get a key at <a href="https://web3forms.com">web3forms.com</a>,
+            add it to <code>.env</code>, and rebuild.
+          </p>
+          <p class="muted">In the meantime the email address opposite works.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+{/*
+  Progressive enhancement: without JS this is a plain POST and Web3Forms renders its own
+  confirmation page. With JS the visitor stays put and gets an inline result, which converts
+  noticeably better than being thrown to a third-party success screen.
+*/}
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector('[data-status]') as HTMLElement;
+    const button = form.querySelector('[data-submit]') as HTMLButtonElement;
+    const original = button.textContent;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'form__status';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const result = await response.json();
+
+        if (response.ok) {
+          form.reset();
+          status.className = 'form__status form__status--ok';
+          status.textContent = 'Sent. We will reply within a working day.';
+          button.textContent = 'Sent';
+          return;
+        }
+        throw new Error(result.message ?? 'Something went wrong.');
+      } catch (error) {
+        status.className = 'form__status form__status--err';
+        // Always give a working fallback rather than a dead end.
+        status.textContent = `Could not send — please email hello@kubeheads.com instead. (${
+          (error as Error).message
+        })`;
+        button.disabled = false;
+        button.textContent = original;
+      }
+    });
+  }
+</script>
+
+<style>
+  .contact { display: grid; gap: 3rem; align-items: start; }
+  @media (min-width: 880px) { .contact { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .contact__mail { font-size: 1.05rem; margin-top: 1.75rem; }
+  .contact__note { font-size: .92rem; max-width: 44ch; }
+
+  .form {
+    display: grid; gap: 1.1rem; background: var(--bg-raised);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem;
+  }
+  .form label { display: grid; gap: .4rem; }
+  .form span { font-size: .86rem; font-weight: 500; color: var(--text-muted); }
+  .form input[type='text'], .form input[type='email'], .form textarea {
+    font: inherit; font-size: .96rem; color: var(--text);
+    background: var(--bg); border: 1px solid var(--line-strong);
+    border-radius: 9px; padding: .7rem .85rem; width: 100%; resize: vertical;
+  }
+  .form input:focus, .form textarea:focus {
+    outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent;
+  }
+  .form button { justify-content: center; margin-top: .3rem; }
+  .form button:disabled { opacity: .6; cursor: progress; }
+  .form__note { font-size: .84rem; margin: 0; }
+  .form__note a { color: var(--accent-text); }
+
+  .form__status { margin: 0; font-size: .9rem; }
+  .form__status:empty { display: none; }
+  .form__status--ok { color: var(--accent-text); font-weight: 500; }
+  .form__status--err { color: #b91c1c; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .form__status--err { color: #fca5a5; }
+  }
+
+  .form--unconfigured h2 { font-size: 1.1rem; margin-bottom: .5rem; }
+  .form--unconfigured p { margin-bottom: .6rem; font-size: .93rem; }
+  .form--unconfigured code {
+    font-family: var(--font-mono); font-size: .85em;
+    background: var(--bg-sunken); padding: .1em .35em; border-radius: 4px;
+  }
+</style>

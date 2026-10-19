@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kubeheads.com/sitemap-index.xml
+
+# Social-card rendering surface, not a real page
+Disallow: /og
