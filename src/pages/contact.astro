@@ -78,14 +78,12 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
           </p>
         </form>
       ) : (
-        <div class="form form--unconfigured">
-          <h2>Form not configured yet</h2>
+        <div class="form form--email">
+          <h2>Email us</h2>
           <p class="muted">
-            <code>PUBLIC_WEB3FORMS_KEY</code> is unset, so the form is hidden rather than
-            shipped broken. Get a key at <a href="https://web3forms.com">web3forms.com</a>,
-            add it to <code>.env</code>, and rebuild.
+            The quickest way to reach us. A few lines is plenty.
           </p>
-          <p class="muted">In the meantime the email address opposite works.</p>
+          <a class="btn btn--primary" href={mailto()}>{SITE.email}</a>
         </div>
       )}
     </div>
@@ -170,10 +168,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
   .form__status--ok { color: var(--accent-text); font-weight: 500; }
   .form__status--err { color: #fca5a5; }
 
-  .form--unconfigured h2 { font-size: 1.1rem; margin-bottom: .5rem; }
-  .form--unconfigured p { margin-bottom: .6rem; font-size: .93rem; }
-  .form--unconfigured code {
-    font-family: var(--font-mono); font-size: .85em;
-    background: var(--bg-sunken); padding: .1em .35em; border-radius: 4px;
-  }
+  .form--email h2 { font-size: 1.3rem; margin: 0; }
+  .form--email p { margin: 0; }
+  .form--email .btn { justify-self: start; }
 </style>
