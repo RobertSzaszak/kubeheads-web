@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../data/site';
+import { mailto, SITE } from '../data/site';
 ---
 <BaseLayout
   title="About"
@@ -56,7 +56,7 @@ import { SITE } from '../data/site';
         where most firms would hand you a junior — that is the trade.
       </p>
       <div class="btn-row">
-        <a class="btn btn--primary" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a class="btn btn--primary" href={mailto()}>{SITE.email}</a>
         <a class="btn btn--ghost" href="/approach">How we work</a>
       </div>
     </div>

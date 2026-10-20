@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
+import Background from '../components/Background.astro';
 import { SITE } from '../data/site';
 
 interface Props { title?: string; description?: string; noindex?: boolean; }
@@ -31,11 +32,12 @@ const jsonLd = {
   areaServed: 'EU',
   address: { '@type': 'PostalAddress', addressLocality: 'Budapest', addressCountry: 'HU' },
   knowsAbout: [
-    'AI automation',
-    'AI workflow automation',
-    'AI cost and latency optimization',
-    'Software engineering',
-    'Data engineering',
+    'Technology consulting',
+    'Proof of concept development',
+    'Web development',
+    'AI agent integration',
+    'Business process automation',
+    'Data processing',
   ],
 };
 ---
@@ -76,12 +78,42 @@ const jsonLd = {
     <Analytics />
   </head>
   <body>
+    <Background />
     <a href="#main" class="skip">Skip to content</a>
     <Nav />
     <main id="main">
       <slot />
     </main>
     <Footer />
+    {/*
+      Scroll reveal: content blocks fade and rise into place as they enter the viewport, with a
+      small stagger between siblings. Inline and at the end of <body> so classes are applied
+      before first paint (no flash). Skipped entirely under reduced motion or without
+      IntersectionObserver, leaving everything visible.
+    */}
+    <script is:inline>
+      (() => {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+        const targets = document.querySelectorAll(
+          'main .wrap > *, main .grid > *, main ol > li, main .svc__grid > *'
+        );
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+          }
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        const seen = new Set();
+        targets.forEach((el) => {
+          if (el.matches('.grid, ol, .svc__grid')) return; // their children animate instead
+          if ([...seen].some((s) => s.contains(el))) return;
+          seen.add(el);
+          const index = [...el.parentElement.children].indexOf(el);
+          el.style.setProperty('--reveal-delay', `${Math.min(index, 5) * 90}ms`);
+          el.classList.add('reveal');
+          io.observe(el);
+        });
+      })();
+    </script>
     <style>
       .skip {
         position: absolute; left: -9999px;

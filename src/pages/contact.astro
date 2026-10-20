@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../data/site';
+import { SITE, mailto } from '../data/site';
 
 /**
  * Web3Forms: the key is public by design — it only permits posting to the address that
@@ -15,7 +15,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
 ---
 <BaseLayout
   title="Contact"
-  description="Tell us about the process you dread. One call, one honest opinion, no deck."
+  description="Tell us what you are trying to solve. We reply within one working day."
 >
   <section class="section">
     <div class="wrap contact">
@@ -23,11 +23,11 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
         <p class="eyebrow">Contact</p>
         <h1>Let's talk.</h1>
         <p class="lede">
-          Tell us the process that quietly eats a day a week. We will tell you whether
-          automating it is worth the money — including when it is not.
+          Tell us a little about your business and what you are trying to solve. We will tell you
+          honestly what is worth doing, including when the answer is nothing.
         </p>
         <p class="mono contact__mail">
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a href={mailto()}>{SITE.email}</a>
         </p>
         <p class="muted contact__note">
           We reply to everything, usually within a working day. No mailing list, no follow-up
@@ -38,7 +38,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
       {accessKey ? (
         <form class="form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
           <input type="hidden" name="access_key" value={accessKey} />
-          <input type="hidden" name="subject" value="New enquiry from kubeheads.com" />
+          <input type="hidden" name="subject" value="[kubeheads.com] Enquiry (contact form)" />
           <input type="hidden" name="from_name" value="KubeHeads website" />
 
           {/* Honeypot. Real people never fill this; bots fill every field they find. */}
@@ -65,7 +65,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
               name="message"
               rows="5"
               required
-              placeholder="The process, roughly how often it runs, and who does it today."
+              placeholder="Your business, the problem, and anything you have already tried."
             ></textarea>
           </label>
 
@@ -168,10 +168,7 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
   .form__status { margin: 0; font-size: .9rem; }
   .form__status:empty { display: none; }
   .form__status--ok { color: var(--accent-text); font-weight: 500; }
-  .form__status--err { color: #b91c1c; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme='light']) .form__status--err { color: #fca5a5; }
-  }
+  .form__status--err { color: #fca5a5; }
 
   .form--unconfigured h2 { font-size: 1.1rem; margin-bottom: .5rem; }
   .form--unconfigured p { margin-bottom: .6rem; font-size: .93rem; }

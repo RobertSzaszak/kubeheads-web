@@ -2,10 +2,60 @@ export const SITE = {
   name: 'KubeHeads',
   domain: 'kubeheads.com',
   email: 'hello@kubeheads.com',
-  tagline: 'Automation that reaches production.',
+  tagline: 'Ready for the agentic revolution.',
   description:
-    'KubeHeads builds AI automation that actually runs. One team covers the whole path — process, models, data, deployment — so the work does not die in the handoffs.',
+    'KubeHeads is an AI and technology consultancy for businesses of any size. We find the best and most cost-effective way to put AI and automation to work for you, with no long commitments unless the project needs them.',
 } as const;
+
+/** Homepage hero: three things a busy owner should take away in five seconds. */
+export const PROMISES = [
+  'Any size of business',
+  'The most cost-effective solution',
+  'No long commitments unless the project needs them',
+] as const;
+
+/**
+ * Every email link goes through this so incoming mail carries a "[kubeheads.com] …" subject
+ * tag. In Gmail, filter on `subject:"[kubeheads.com]"` to label website enquiries.
+ */
+export const mailto = (topic = 'Enquiry') =>
+  `mailto:${SITE.email}?subject=${encodeURIComponent(`[kubeheads.com] ${topic}`)}`;
+
+/** Homepage: what we can help with. One sentence each, written for a busy owner. */
+export const HELP_AREAS = [
+  {
+    title: 'Web development',
+    body: 'Websites, web apps and internal tools that your team and customers actually use.',
+  },
+  {
+    title: 'AI agent integration',
+    body: 'AI assistants and agents connected to your own systems, doing real work safely.',
+  },
+  {
+    title: 'Automation',
+    body: 'Repetitive manual work handed over to software, so your people can do the work that matters.',
+  },
+  {
+    title: 'Data processing',
+    body: 'Scattered data collected, cleaned and turned into reports and decisions.',
+  },
+] as const;
+
+/** Homepage: the consultancy offer, in three steps. */
+export const HOW_WE_HELP = [
+  {
+    title: 'Review',
+    body: 'We look at your current systems and processes and find where time and money are lost.',
+  },
+  {
+    title: 'Research',
+    body: 'We compare the options and recommend the most cost-effective one, including when that means changing nothing.',
+  },
+  {
+    title: 'Prove',
+    body: 'We plan and build a proof of concept, so you see it working before you commit a budget.',
+  },
+] as const;
 
 export const NAV = [
   { href: '/', label: 'Home' },
@@ -65,8 +115,8 @@ export const SERVICES = [
 export const PROCESS = [
   {
     step: 'Week 0',
-    title: 'Free teardown',
-    body: 'A call and a look at one process. You leave with a written opinion on whether automating it is worth the money — including when the answer is no.',
+    title: 'Introduction',
+    body: 'Email us about your business and the problem. You get an honest first opinion on whether it is worth solving with technology — including when the answer is no.',
     output: 'A one-page written assessment',
   },
   {
@@ -97,13 +147,6 @@ export const PRINCIPLES = [
     body: 'A demo proves a model can do something once. We are only interested in the version that runs on Monday morning without anyone watching it.',
   },
 ] as const;
-
-/** The failure mode we are selling against. Used on the homepage. */
-export const PROBLEM = {
-  stat: 'Most AI projects never leave the pilot.',
-  body:
-    'They demo well, get a budget, and then stall — because the model was the easy part. What kills them is everything around it: the data that was never clean, the approval step nobody designed, the deployment path that did not exist, and the three vendors each waiting on the other two.',
-} as const;
 
 /**
  * Secondary links shown in the footer only. Games live here rather than in NAV so the

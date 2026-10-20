@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { GAMES, SITE } from '../../data/site';
+import { GAMES, mailto } from '../../data/site';
 ---
 <BaseLayout
   title="Games"
@@ -30,7 +30,7 @@ import { GAMES, SITE } from '../../data/site';
         ))}
       </div>
       <div class="btn-row">
-        <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Get in touch</a>
+        <a class="btn btn--ghost" href={mailto('Games')}>Get in touch</a>
       </div>
     </div>
   </section>

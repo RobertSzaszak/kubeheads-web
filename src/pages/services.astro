@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SERVICES, PRINCIPLES, SITE } from '../data/site';
+import { SERVICES, PRINCIPLES, mailto } from '../data/site';
 ---
 <BaseLayout
   title="What we do"
@@ -48,8 +48,7 @@ import { SERVICES, PRINCIPLES, SITE } from '../data/site';
         ))}
       </div>
       <div class="btn-row">
-        <a class="btn btn--primary" href="/contact">Start with a teardown</a>
-        <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>Email us</a>
+        <a class="btn btn--primary" href={mailto()}>Email us</a>
       </div>
     </div>
   </section>

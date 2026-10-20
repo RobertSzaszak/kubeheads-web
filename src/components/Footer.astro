@@ -1,5 +1,5 @@
 ---
-import { SITE, NAV, FOOTER_LINKS } from '../data/site';
+import { SITE, NAV, FOOTER_LINKS, mailto } from '../data/site';
 const year = new Date().getFullYear();
 ---
 <footer class="foot">
@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
       <p class="foot__brand">{SITE.name}</p>
       <p class="foot__line">{SITE.tagline}</p>
       <p class="foot__line">
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a href={mailto()}>{SITE.email}</a>
       </p>
     </div>
     <nav aria-label="Footer">

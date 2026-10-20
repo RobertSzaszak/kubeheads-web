@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { PROCESS, SITE } from '../data/site';
+import { mailto, PROCESS, SITE } from '../data/site';
 ---
 <BaseLayout
   title="How we work"
-  description="A free teardown, a fixed-fee build, then run it or take it. What each stage costs you and what it produces."
+  description="An introduction by email, a fixed-fee build, then run it or take it. What each stage costs you and what it produces."
 >
   <section class="section">
     <div class="wrap">
@@ -60,8 +60,7 @@ import { PROCESS, SITE } from '../data/site';
       </ul>
 
       <div class="btn-row">
-        <a class="btn btn--primary" href="/contact">Book a teardown</a>
-        <a class="btn btn--ghost" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <a class="btn btn--primary" href={mailto()}>{SITE.email}</a>
       </div>
     </div>
   </section>

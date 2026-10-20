@@ -51,20 +51,20 @@ import { SITE } from '../data/site';
 
       .card {
         width: 1200px; height: 630px; box-sizing: border-box;
-        background: #0e0d0c; color: #f2efea;
+        background: #070b1f; color: #f5f7ff;
         padding: 72px 80px; display: flex; flex-direction: column;
         justify-content: space-between; position: relative; overflow: hidden;
       }
       .card::before {
         content: ''; position: absolute; inset: 0;
-        background: radial-gradient(700px 500px at 8% -15%, rgba(251, 146, 60, .20), transparent 70%);
+        background: radial-gradient(700px 500px at 8% -15%, rgba(139, 92, 246, .32), transparent 70%);
       }
       .card > * { position: relative; }
 
       .card__top { display: flex; align-items: center; gap: 16px; }
       .mark {
-        width: 26px; height: 26px; border-radius: 6px; background: #fb923c;
-        box-shadow: 9px 9px 0 -2px rgba(251, 146, 60, .35);
+        width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(115deg, #8b5cf6, #38bdf8);
+        box-shadow: 9px 9px 0 -2px rgba(56, 189, 248, .4);
       }
       .name {
         font-family: 'Space Grotesk', sans-serif; font-weight: 700;
@@ -75,13 +75,13 @@ import { SITE } from '../data/site';
         font-family: 'Space Grotesk', sans-serif; font-weight: 700;
         font-size: 72px; line-height: 1.1; letter-spacing: -.03em; margin: 0;
       }
-      .card h1 span { color: #fb923c; }
+      .card h1 span { color: #7dd3fc; }
 
       .card__foot {
         display: flex; justify-content: space-between; align-items: baseline;
-        font-size: 22px; color: #a49b8e;
+        font-size: 22px; color: #aab3d9;
       }
-      .dom { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #f2efea; }
+      .dom { font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #f5f7ff; }
     </style>
   </body>
 </html>
